@@ -176,6 +176,18 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler {
 
     // Load the player.
     _player.setAudioSource(AudioSource.uri(Uri.parse(_item.id)));
+
+    var index = 0;
+    updateMediaTitle() {
+      Future.delayed(const Duration(seconds: 9), () {
+        if (_player.playing) {
+          mediaItem.add(mediaItem.value?.copyWith(title: 'title_${index++}'));
+        }
+        updateMediaTitle();
+      });
+    }
+
+    updateMediaTitle();
   }
 
   // In this simple example, we handle only 4 actions: play, pause, seek and
